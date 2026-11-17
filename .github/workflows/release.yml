@@ -1,11 +1,12 @@
 name: Release APK
 
 on:
-permissions:
-  contents: write
   push:
     tags:
       - 'v*'
+
+permissions:
+  contents: write
 
 jobs:
   build:
