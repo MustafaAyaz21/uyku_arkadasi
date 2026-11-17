@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "625163016096",
+    "project_id": "uyku-arkadasi",
+    "storage_bucket": "uyku-arkadasi.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625163016096:android:e7d3b1eb359ba59446b6c5",
+        "android_client_info": {
+          "package_name": "com.example.uyku_arkadasi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU7jUNXT7qhHhUtbSIKKwJJjNtZ7Fi5rQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
