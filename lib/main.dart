@@ -44,6 +44,7 @@ Future yeniSurumKontrolEt() async {
   } catch (_) {}
   return null;
 }
+
 Future<String?> guncellemeApkIndirVeKur(String apkUrl) async {
   try {
     if (apkUrl.trim().isEmpty) {
@@ -67,6 +68,7 @@ Future<String?> guncellemeApkIndirVeKur(String apkUrl) async {
     return 'Hata: $e';
   }
 }
+
 // ============================================================================
 // YEREL BİLDİRİM YÖNETİCİSİ (PLANLI MESAJLAR İÇİN - GÜNCEL SÜRÜM UYUMLU)
 // ============================================================================
@@ -528,7 +530,6 @@ class _HesapOlusturEkraniState extends State<HesapOlusturEkrani> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 if (!widget.duzenlemeModu) ...[
                   const Text(
                     'Hesap Oluştur',
@@ -1029,7 +1030,7 @@ class GecePanosuEkrani extends StatefulWidget {
 
 class _GecePanosuEkraniState extends State<GecePanosuEkrani> {
   Map _mevcutGuncelleme = {};
-bool _guncellemeIndiriliyor = false;
+  bool _guncellemeIndiriliyor = false;
   bool _iyiGecelerModu = true;
   TimeOfDay _baslangicSaati = const TimeOfDay(hour: 0, minute: 0);
   TimeOfDay _bitisSaati = const TimeOfDay(hour: 7, minute: 0);
@@ -1060,12 +1061,14 @@ bool _guncellemeIndiriliyor = false;
       if (mounted) setState(() {});
     });
   }
-Future<void> _guncellemeKontrolEt() async {
+
+  Future<void> _guncellemeKontrolEt() async {
     final guncelleme = await yeniSurumKontrolEt();
     if (mounted && guncelleme != null) {
       setState(() => _mevcutGuncelleme = guncelleme);
     }
   }
+
   @override
   void dispose() {
     _ekranYenilemeSayaci?.cancel();
@@ -1616,7 +1619,7 @@ Future<void> _guncellemeKontrolEt() async {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-               if (_mevcutGuncelleme.isNotEmpty)
+                if (_mevcutGuncelleme.isNotEmpty)
                   Container(
                     margin: const EdgeInsets.only(bottom: 16),
                     padding: const EdgeInsets.all(14),
@@ -1627,36 +1630,43 @@ Future<void> _guncellemeKontrolEt() async {
                     ),
                     child: Row(
                       children: [
-                        const Icon(Icons.system_update_rounded, color: Color(0xFF58A6FF)),
+                        const Icon(Icons.system_update_rounded,
+                            color: Color(0xFF58A6FF)),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             'Yeni bir güncelleme mevcut (${_mevcutGuncelleme['latest_version']})',
-                            style: const TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                fontSize: 13, fontWeight: FontWeight.bold),
                           ),
                         ),
                         ElevatedButton(
-onPressed: _guncellemeIndiriliyor
-    ? null
-    : () async {
-        setState(() => _guncellemeIndiriliyor = true);
-        final hata = await guncellemeApkIndirVeKur(
-          (_mevcutGuncelleme['apk_url'] ?? '').toString(),
-        );
-        if (mounted) {
-          setState(() => _guncellemeIndiriliyor = false);
-          if (hata != null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(hata)),
-            );
-          }
-        }
-      },
+                          onPressed: _guncellemeIndiriliyor
+                              ? null
+                              : () async {
+                                  setState(() => _guncellemeIndiriliyor = true);
+                                  final hata = await guncellemeApkIndirVeKur(
+                                    (_mevcutGuncelleme['apk_url'] ?? '')
+                                        .toString(),
+                                  );
+                                  if (mounted) {
+                                    setState(
+                                        () => _guncellemeIndiriliyor = false);
+                                    if (hata != null) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(content: Text(hata)),
+                                      );
+                                    }
+                                  }
+                                },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF58A6FF),
                             foregroundColor: Colors.black,
                           ),
-                          child: Text(_guncellemeIndiriliyor ? 'İndiriliyor...' : 'İndir'),
+                          child: Text(_guncellemeIndiriliyor
+                              ? 'İndiriliyor...'
+                              : 'İndir'),
                         ),
                       ],
                     ),
